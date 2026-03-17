@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python 学习路线 · 0基础小白完全指南</title>
+<style>
+  :root {
+    --blue: #3B82F6;
+    --indigo: #6366F1;
+    --purple: #8B5CF6;
+    --pink: #EC4899;
+    --green: #10B981;
+    --teal: #14B8A6;
+    --orange: #F59E0B;
+    --red: #EF4444;
+    --gray: #6B7280;
+    --bg: #0F172A;
+    --card: #1E293B;
+    --border: #334155;
+    --text: #E2E8F0;
+    --muted: #94A3B8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #1e3a5f 100%);
+    padding: 60px 20px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(99,102,241,0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(59,130,246,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(99,102,241,0.25);
+    border: 1px solid rgba(99,102,241,0.5);
+    color: #a5b4fc;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #a5b4fc 50%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 14px;
+  }
+  .hero p {
+    color: #94a3b8;
+    font-size: clamp(14px, 2.5vw, 18px);
+    max-width: 600px;
+    margin: 0 auto 28px;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    color: #cbd5e1;
+  }
+  .stat-pill span { color: #fff; font-weight: 700; }
+
+  /* ===== CONTAINER ===== */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+
+  /* ===== OVERVIEW TIMELINE ===== */
+  .section { padding: 50px 0 20px; }
+  .section-title {
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 36px;
+  }
+
+  /* Phase timeline */
+  .phase-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .phase-timeline::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #6366F1, #8B5CF6, #EC4899, #F59E0B, #10B981);
+  }
+  .phase-item {
+    display: flex;
+    gap: 20px;
+    padding: 0 0 32px 0;
+    position: relative;
+  }
+  .phase-dot {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    flex-shrink: 0;
+    z-index: 1;
+    position: relative;
+    box-shadow: 0 0 0 4px var(--bg);
+  }
+  .phase-content {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    flex: 1;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .phase-content:hover {
+    transform: translateX(4px);
+    border-color: #475569;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .phase-title { font-size: 17px; font-weight: 700; }
+  .phase-time {
+    background: rgba(255,255,255,0.07);
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .phase-desc { color: var(--muted); font-size: 14px; margin-bottom: 14px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tag {
+    padding: 3px 11px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ===== DETAIL CARDS ===== */
+  .detail-section { padding: 30px 0; }
+  .detail-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .detail-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .detail-title { font-size: 22px; font-weight: 700; }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .detail-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .detail-card:hover {
+    border-color: #475569;
+    transform: translateY(-2px);
+  }
+  .detail-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .detail-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .detail-card ul li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+  .detail-card ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: #475569;
+  }
+
+  /* ===== CODE EXAMPLE ===== */
+  .code-block {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 18px 20px;
+    font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-x: auto;
+    margin: 12px 0;
+    position: relative;
+  }
+  .code-label {
+    position: absolute;
+    top: 10px; right: 14px;
+    font-size: 11px;
+    color: #484f58;
+    font-family: sans-serif;
+  }
+  .kw { color: #ff7b72; }
+  .fn { color: #d2a8ff; }
+  .str { color: #a5d6ff; }
+  .num { color: #79c0ff; }
+  .cm { color: #484f58; font-style: italic; }
+  .var { color: #ffa657; }
+
+  /* ===== RESOURCE TABLE ===== */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .resource-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .resource-card:hover { border-color: #475569; }
+  .resource-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .resource-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .resource-desc { font-size: 12px; color: var(--muted); }
+  .resource-type {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* ===== TIPS BOX ===== */
+  .tip-box {
+    background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(59,130,246,0.08));
+    border: 1px solid rgba(99,102,241,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin: 16px 0;
+  }
+  .tip-box-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #a5b4fc;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tip-box ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px;
+  }
+  .tip-box ul li {
+    font-size: 13px;
+    color: #cbd5e1;
+    padding-left: 16px;
+    position: relative;
+  }
+  .tip-box ul li::before { content: '✓'; position: absolute; left: 0; color: #6366F1; }
+
+  /* ===== DIRECTION CARDS ===== */
+  .direction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .direction-card {
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .direction-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  }
+  .dir-icon { font-size: 32px; margin-bottom: 10px; }
+  .dir-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .dir-desc { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .dir-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .dir-tag {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    background: rgba(255,255,255,0.08);
+    color: #94a3b8;
+  }
+
+  /* ===== PITFALL BOX ===== */
+  .pitfall-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .pitfall-card {
+    background: var(--card);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .pitfall-q {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fca5a5;
+    margin-bottom: 6px;
+    display: flex;
+    gap: 6px;
+  }
+  .pitfall-a { font-size: 12px; color: var(--muted); }
+
+  /* ===== PLAN CALENDAR ===== */
+  .plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 14px;
+  }
+  .plan-table th {
+    background: rgba(99,102,241,0.15);
+    color: #a5b4fc;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  .plan-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(51,65,85,0.5);
+    color: var(--muted);
+    vertical-align: top;
+  }
+  .plan-table tr:hover td { background: rgba(255,255,255,0.02); color: var(--text); }
+  .plan-week { color: var(--text); font-weight: 600; }
+  .plan-badge {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  /* ===== DIVIDER ===== */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 10px 0;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 28px 20px;
+    margin-top: 60px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer strong { color: var(--text); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .hero { padding: 40px 16px 36px; }
+    .phase-timeline::before { left: 20px; }
+    .phase-dot { width: 42px; height: 42px; font-size: 16px; }
+    .detail-grid { grid-template-columns: 1fr; }
+    .direction-grid { grid-template-columns: 1fr; }
+    .pitfall-grid { grid-template-columns: 1fr; }
+    .resource-grid { grid-template-columns: 1fr; }
+    .plan-table { font-size: 12px; }
+    .plan-table th, .plan-table td { padding: 8px 10px; }
+    .tip-box ul { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-badge">🐍 Python 完全学习指南 2026</div>
+  <h1>Python 学习路线</h1>
+  <p>专为 0 基础小白设计 · 从第一行代码到职业方向，手把手带你走完全程</p>
+  <div class="hero-stats">
+    <div class="stat-pill">📅 系统学习周期 <span>6~12 个月</span></div>
+    <div class="stat-pill">🗺️ 共 <span>6 大阶段</span></div>
+    <div class="stat-pill">🎯 覆盖 <span>7 大就业方向</span></div>
+    <div class="stat-pill">💡 <span>100+</span> 知识点梳理</div>
+  </div>
+</div>
+
+<!-- ===== OVERVIEW ===== -->
+<div class="container">
+  <div class="section">
+    <div class="section-title">🗺️ 整体学习路线总览</div>
+    <div class="section-sub">六个阶段循序渐进，每阶段都有明确目标和里程碑</div>
+
+    <div class="phase-timeline">
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#6366F1,#818CF8);">1</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">🚀 环境搭建 & 入门起步</span>
+            <span class="phase-time">第 1~2 周</span>
+          </div>
+          <div class="phase-desc">从零开始，安装好工具，写出人生第一行 Python 代码，消除对编程的陌生感。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">Python 安装</span>
+            <span class="tag" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">VS Code 配置</span>
+            <span class="tag" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">Hello World</span>
+            <span class="tag" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">变量与数据类型</span>
+            <span class="tag" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">print / input</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA);">2</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">📚 Python 基础语法</span>
+            <span class="phase-time">第 3~6 周</span>
+          </div>
+          <div class="phase-desc">掌握 Python 的核心语法体系，能独立编写几十行的小程序解决简单问题。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">条件判断</span>
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">循环</span>
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">函数</span>
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">列表/字典/元组/集合</span>
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">字符串操作</span>
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">文件读写</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#EC4899,#F472B6);">3</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">🏗️ 面向对象 & 模块化编程</span>
+            <span class="phase-time">第 7~10 周</span>
+          </div>
+          <div class="phase-desc">理解面向对象思想，学会用类和模块组织代码，掌握异常处理，写出结构清晰的程序。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">类与对象</span>
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">继承与多态</span>
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">异常处理</span>
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">模块与包</span>
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">常用标准库</span>
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">装饰器入门</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#F59E0B,#FBBF24);">4</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">⚡ 进阶特性 & 工程实践</span>
+            <span class="phase-time">第 11~16 周</span>
+          </div>
+          <div class="phase-desc">深入 Python 高级特性，掌握虚拟环境、包管理、测试和 Git，具备实际工程开发能力。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">推导式</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">生成器/迭代器</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">多线程/多进程</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">异步 asyncio</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">虚拟环境</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">单元测试</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">Git 版本控制</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#10B981,#34D399);">5</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">🔧 方向选择 & 专项深入</span>
+            <span class="phase-time">第 17~28 周</span>
+          </div>
+          <div class="phase-desc">根据兴趣/就业目标选择专业方向（Web开发/数据分析/爬虫/AI等），深入学习对应技术栈。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">Django/Flask</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">Pandas/NumPy</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">Scrapy/爬虫</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">PyTorch/TensorFlow</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">自动化测试</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">FastAPI</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#14B8A6,#2DD4BF);">6</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">🏆 项目实战 & 求职准备</span>
+            <span class="phase-time">第 29~48 周</span>
+          </div>
+          <div class="phase-desc">独立完成 2~3 个完整项目，打磨 GitHub 主页，准备简历和技术面试，迈向职业化。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(20,184,166,0.15);color:#5eead4;">完整项目实战</span>
+            <span class="tag" style="background:rgba(20,184,166,0.15);color:#5eead4;">GitHub Portfolio</span>
+            <span class="tag" style="background:rgba(20,184,166,0.15);color:#5eead4;">代码规范 PEP8</span>
+            <span class="tag" style="background:rgba(20,184,166,0.15);color:#5eead4;">算法刷题</span>
+            <span class="tag" style="background:rgba(20,184,166,0.15);color:#5eead4;">系统设计</span>
+            <span class="tag" style="background:rgba(20,184,166,0.15);color:#5eead4;">面试准备</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== 阶段1 详解 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(99,102,241,0.15);">🚀</div>
+      <div class="detail-title">阶段 1 · 环境搭建 & 入门起步（第1~2周）</div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#a5b4fc;">🛠️ 开发环境安装</div>
+        <ul>
+          <li>去 python.org 下载 Python 3.12+</li>
+          <li>安装时勾选 "Add to PATH"</li>
+          <li>终端输入 python --version 验证</li>
+          <li>安装 VS Code + Python 插件</li>
+          <li>安装 Pylance、Code Runner 插件</li>
+          <li>了解 Jupyter Notebook（数据方向必备）</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#a5b4fc;">📝 第一个程序</div>
+        <ul>
+          <li>认识 .py 文件</li>
+          <li>print() 输出语句</li>
+          <li>input() 获取用户输入</li>
+          <li>注释：# 单行 / """ 多行</li>
+          <li>缩进规则（Python 的灵魂）</li>
+          <li>了解解释型语言 vs 编译型语言</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#a5b4fc;">🔢 数据类型入门</div>
+        <ul>
+          <li>整数 int：1, 100, -5</li>
+          <li>浮点数 float：3.14, -0.5</li>
+          <li>字符串 str："Hello", 'Python'</li>
+          <li>布尔值 bool：True / False</li>
+          <li>type() 查看类型</li>
+          <li>变量命名规范（下划线命名法）</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#a5b4fc;">🧮 运算符</div>
+        <ul>
+          <li>算术：+ - * / // % **</li>
+          <li>比较：== != > < >= <=</li>
+          <li>逻辑：and or not</li>
+          <li>赋值：= += -= *= /=</li>
+          <li>字符串拼接与重复</li>
+          <li>f-string 格式化输出</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-box-title">💡 入门阶段学习建议</div>
+      <ul>
+        <li>每天保证 1~2 小时练习</li>
+        <li>手敲每一行代码，不要复制粘贴</li>
+        <li>出错是正常的，看报错信息解决问题</li>
+        <li>先跑通，再理解原理</li>
+        <li>用 Python 解决生活小问题（如算账）</li>
+        <li>不要纠结细节，保持向前推进</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label">示例：人生第一个Python程序</div>
+<span class="cm"># 变量定义</span>
+<span class="var">name</span> = <span class="fn">input</span>(<span class="str">"请输入你的名字: "</span>)
+<span class="var">age</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"请输入你的年龄: "</span>))
+
+<span class="cm"># f-string 格式化输出</span>
+<span class="fn">print</span>(<span class="str">f"你好，<span class="var">{name}</span>！你今年 <span class="var">{age}</span> 岁，<span class="var">{2026 - age}</span> 年出生。"</span>)
+
+<span class="cm"># 简单计算</span>
+<span class="var">years_to_30</span> = <span class="num">30</span> - <span class="var">age</span>
+<span class="kw">if</span> <span class="var">years_to_30</span> > <span class="num">0</span>:
+    <span class="fn">print</span>(<span class="str">f"距离30岁还有 <span class="var">{years_to_30}</span> 年，加油！"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"你已经超过30岁了，经验丰富！"</span>)
+    </div>
+  </div>
+
+  <!-- ===== 阶段2 详解 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(139,92,246,0.15);">📚</div>
+      <div class="detail-title">阶段 2 · Python 基础语法（第3~6周）</div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#c4b5fd;">🔀 控制流</div>
+        <ul>
+          <li>if / elif / else 条件判断</li>
+          <li>for 循环 + range()</li>
+          <li>while 循环</li>
+          <li>break / continue / pass</li>
+          <li>嵌套循环</li>
+          <li>match-case（Python 3.10+）</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#c4b5fd;">📦 数据容器</div>
+        <ul>
+          <li>列表 list：有序可变 [1,2,3]</li>
+          <li>元组 tuple：有序不可变 (1,2,3)</li>
+          <li>字典 dict：键值对 {"key": val}</li>
+          <li>集合 set：无序不重复 {1,2,3}</li>
+          <li>常用方法：append/pop/update</li>
+          <li>嵌套容器与遍历</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#c4b5fd;">🔧 函数</div>
+        <ul>
+          <li>def 定义函数</li>
+          <li>参数：位置参数/关键字参数</li>
+          <li>默认参数 def fn(x=10)</li>
+          <li>可变参数 *args **kwargs</li>
+          <li>return 返回值（多返回值）</li>
+          <li>lambda 匿名函数</li>
+          <li>作用域：局部/全局 global</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#c4b5fd;">✂️ 字符串进阶</div>
+        <ul>
+          <li>切片 s[start:end:step]</li>
+          <li>split / join / strip</li>
+          <li>replace / find / count</li>
+          <li>upper / lower / title</li>
+          <li>startswith / endswith</li>
+          <li>正则表达式 re 模块基础</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#c4b5fd;">📁 文件操作</div>
+        <ul>
+          <li>open() 打开文件</li>
+          <li>read / readline / readlines</li>
+          <li>write / writelines</li>
+          <li>with 上下文管理器（推荐）</li>
+          <li>文件路径：os.path 模块</li>
+          <li>CSV / JSON 文件读写</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#c4b5fd;">🧩 常用内置函数</div>
+        <ul>
+          <li>len / range / enumerate / zip</li>
+          <li>map / filter / sorted / reversed</li>
+          <li>max / min / sum / abs / round</li>
+          <li>list / tuple / dict / set / str</li>
+          <li>isinstance / type</li>
+          <li>help() 查看文档</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label">示例：综合运用基础语法</div>
+<span class="cm"># 统计一段文字中每个单词出现次数</span>
+<span class="kw">def</span> <span class="fn">word_count</span>(<span class="var">text</span>):
+    <span class="var">words</span> = <span class="var">text</span>.<span class="fn">lower</span>().<span class="fn">split</span>()
+    <span class="var">counter</span> = {}
+    <span class="kw">for</span> <span class="var">word</span> <span class="kw">in</span> <span class="var">words</span>:
+        <span class="var">counter</span>[<span class="var">word</span>] = <span class="var">counter</span>.<span class="fn">get</span>(<span class="var">word</span>, <span class="num">0</span>) + <span class="num">1</span>
+    <span class="kw">return</span> <span class="var">counter</span>
+
+<span class="var">text</span> = <span class="str">"python is great python is easy to learn"</span>
+<span class="var">result</span> = <span class="fn">word_count</span>(<span class="var">text</span>)
+
+<span class="cm"># 按出现次数排序输出</span>
+<span class="kw">for</span> <span class="var">word</span>, <span class="var">count</span> <span class="kw">in</span> <span class="fn">sorted</span>(<span class="var">result</span>.<span class="fn">items</span>(), <span class="var">key</span>=<span class="kw">lambda</span> <span class="var">x</span>: <span class="var">x</span>[<span class="num">1</span>], <span class="var">reverse</span>=<span class="kw">True</span>):
+    <span class="fn">print</span>(<span class="str">f"  {word:10} → {count} 次"</span>)
+    </div>
+  </div>
+
+  <!-- ===== 阶段3 详解 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(236,72,153,0.15);">🏗️</div>
+      <div class="detail-title">阶段 3 · 面向对象 & 模块化（第7~10周）</div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#f9a8d4;">🏛️ 面向对象基础</div>
+        <ul>
+          <li>类（class）与对象（instance）</li>
+          <li>__init__ 构造方法</li>
+          <li>self 关键字含义</li>
+          <li>实例属性 vs 类属性</li>
+          <li>实例方法 / 类方法 / 静态方法</li>
+          <li>__str__ / __repr__ 魔法方法</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#f9a8d4;">🧬 继承与多态</div>
+        <ul>
+          <li>单继承与多继承</li>
+          <li>super() 调用父类</li>
+          <li>方法重写 override</li>
+          <li>多态：同一接口不同实现</li>
+          <li>抽象类 abc 模块</li>
+          <li>Mixin 混入模式</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#f9a8d4;">⚠️ 异常处理</div>
+        <ul>
+          <li>try / except / else / finally</li>
+          <li>捕获特定异常类型</li>
+          <li>raise 主动抛出异常</li>
+          <li>自定义异常类</li>
+          <li>常见异常：TypeError/ValueError</li>
+          <li>with 语句与上下文管理</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#f9a8d4;">📦 模块与包</div>
+        <ul>
+          <li>import / from import</li>
+          <li>as 别名</li>
+          <li>__name__ == "__main__"</li>
+          <li>包：含 __init__.py 的目录</li>
+          <li>相对导入 vs 绝对导入</li>
+          <li>pip 安装第三方包</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#f9a8d4;">🗂️ 标准库精华</div>
+        <ul>
+          <li>os / sys：系统操作</li>
+          <li>pathlib：现代路径处理</li>
+          <li>datetime：日期时间</li>
+          <li>json / csv：数据格式</li>
+          <li>collections：高级容器</li>
+          <li>itertools / functools</li>
+          <li>random / math / re</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#f9a8d4;">🎨 装饰器入门</div>
+        <ul>
+          <li>函数是"一等公民"概念</li>
+          <li>闭包 closure</li>
+          <li>@property 属性装饰器</li>
+          <li>@classmethod / @staticmethod</li>
+          <li>自定义装饰器写法</li>
+          <li>functools.wraps 保留元信息</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label">示例：面向对象设计一个银行账户</div>
+<span class="kw">class</span> <span class="fn">BankAccount</span>:
+    <span class="var">bank_name</span> = <span class="str">"Python银行"</span>  <span class="cm"># 类属性</span>
+
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="var">self</span>, <span class="var">owner</span>, <span class="var">balance</span>=<span class="num">0</span>):
+        <span class="var">self</span>.owner = <span class="var">owner</span>
+        <span class="var">self</span>._balance = <span class="var">balance</span>  <span class="cm"># 下划线表示私有</span>
+
+    <span class="kw">@property</span>
+    <span class="kw">def</span> <span class="fn">balance</span>(<span class="var">self</span>):
+        <span class="kw">return</span> <span class="var">self</span>._balance
+
+    <span class="kw">def</span> <span class="fn">deposit</span>(<span class="var">self</span>, <span class="var">amount</span>):
+        <span class="kw">if</span> <span class="var">amount</span> <= <span class="num">0</span>:
+            <span class="kw">raise</span> <span class="fn">ValueError</span>(<span class="str">"存款金额必须大于0"</span>)
+        <span class="var">self</span>._balance += <span class="var">amount</span>
+        <span class="kw">return</span> <span class="var">self</span>
+
+    <span class="kw">def</span> <span class="fn">__str__</span>(<span class="var">self</span>):
+        <span class="kw">return</span> <span class="str">f"{self.bank_name} | {self.owner} | 余额: ¥{self._balance:,.2f}"</span>
+
+<span class="var">acc</span> = <span class="fn">BankAccount</span>(<span class="str">"张三"</span>, <span class="num">1000</span>).<span class="fn">deposit</span>(<span class="num">500</span>).<span class="fn">deposit</span>(<span class="num">200</span>)
+<span class="fn">print</span>(<span class="var">acc</span>)  <span class="cm"># Python银行 | 张三 | 余额: ¥1,700.00</span>
+    </div>
+  </div>
+
+  <!-- ===== 阶段4 详解 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(245,158,11,0.15);">⚡</div>
+      <div class="detail-title">阶段 4 · 进阶特性 & 工程实践（第11~16周）</div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#fcd34d;">⚙️ Python 进阶特性</div>
+        <ul>
+          <li>列表/字典/集合推导式</li>
+          <li>生成器 generator / yield</li>
+          <li>迭代器协议 __iter__ __next__</li>
+          <li>上下文管理器 __enter__ __exit__</li>
+          <li>描述符 descriptor</li>
+          <li>元类 metaclass 入门</li>
+          <li>类型注解 Type Hints (PEP 484)</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#fcd34d;">🔄 并发编程</div>
+        <ul>
+          <li>GIL（全局解释器锁）理解</li>
+          <li>threading 多线程</li>
+          <li>multiprocessing 多进程</li>
+          <li>asyncio 异步编程</li>
+          <li>async / await 语法</li>
+          <li>concurrent.futures 线程/进程池</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#fcd34d;">🏗️ 项目工程化</div>
+        <ul>
+          <li>venv 虚拟环境创建与激活</li>
+          <li>pip freeze > requirements.txt</li>
+          <li>项目目录结构规范</li>
+          <li>pyproject.toml / setup.py</li>
+          <li>代码格式化：black / ruff</li>
+          <li>类型检查：mypy</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#fcd34d;">🧪 测试与调试</div>
+        <ul>
+          <li>print 调试 vs 断点调试</li>
+          <li>logging 日志模块</li>
+          <li>unittest 单元测试框架</li>
+          <li>pytest（更推荐）</li>
+          <li>Mock 对象与打桩</li>
+          <li>测试覆盖率 coverage</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#fcd34d;">📡 Git 版本控制</div>
+        <ul>
+          <li>git init / add / commit</li>
+          <li>git branch / checkout / merge</li>
+          <li>git pull / push / clone</li>
+          <li>.gitignore 配置</li>
+          <li>GitHub 创建仓库与协作</li>
+          <li>Pull Request 流程</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#fcd34d;">🌐 网络编程基础</div>
+        <ul>
+          <li>HTTP 协议基础</li>
+          <li>requests 库发送 HTTP 请求</li>
+          <li>JSON API 调用</li>
+          <li>socket 编程入门</li>
+          <li>urllib 标准库</li>
+          <li>环境变量与 .env 文件</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 方向选择 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(16,185,129,0.15);">🔧</div>
+      <div class="detail-title">阶段 5 · 七大方向详解（选一深入）</div>
+    </div>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:20px;">根据你的目标和兴趣选择一个方向深入，不要同时学多个方向，专注才能突破。</p>
+
+    <div class="direction-grid">
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(59,130,246,0.12),rgba(99,102,241,0.08));">
+        <div class="dir-icon">🌐</div>
+        <div class="dir-title" style="color:#60a5fa;">Web 后端开发</div>
+        <div class="dir-desc">打造服务端 API、网站后台，需求量最大的 Python 方向之一</div>
+        <div class="dir-tags">
+          <span class="dir-tag">Django</span>
+          <span class="dir-tag">Flask</span>
+          <span class="dir-tag">FastAPI</span>
+          <span class="dir-tag">SQLAlchemy</span>
+          <span class="dir-tag">MySQL/PostgreSQL</span>
+          <span class="dir-tag">Redis</span>
+          <span class="dir-tag">Docker</span>
+          <span class="dir-tag">REST API</span>
+        </div>
+      </div>
+
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(251,191,36,0.08));">
+        <div class="dir-icon">📊</div>
+        <div class="dir-title" style="color:#fbbf24;">数据分析</div>
+        <div class="dir-desc">从数据中发现规律和洞察，结合可视化输出报告，职场通用技能</div>
+        <div class="dir-tags">
+          <span class="dir-tag">Pandas</span>
+          <span class="dir-tag">NumPy</span>
+          <span class="dir-tag">Matplotlib</span>
+          <span class="dir-tag">Seaborn</span>
+          <span class="dir-tag">Plotly</span>
+          <span class="dir-tag">Jupyter</span>
+          <span class="dir-tag">Excel 自动化</span>
+        </div>
+      </div>
+
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(52,211,153,0.08));">
+        <div class="dir-icon">🤖</div>
+        <div class="dir-title" style="color:#34d399;">机器学习 / AI</div>
+        <div class="dir-desc">训练 AI 模型，前沿热门方向，需要较强的数学基础（线性代数/概率）</div>
+        <div class="dir-tags">
+          <span class="dir-tag">scikit-learn</span>
+          <span class="dir-tag">PyTorch</span>
+          <span class="dir-tag">TensorFlow</span>
+          <span class="dir-tag">HuggingFace</span>
+          <span class="dir-tag">LangChain</span>
+          <span class="dir-tag">线性代数</span>
+          <span class="dir-tag">概率论</span>
+        </div>
+      </div>
+
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(236,72,153,0.12),rgba(244,114,182,0.08));">
+        <div class="dir-icon">🕷️</div>
+        <div class="dir-title" style="color:#f472b6;">网络爬虫</div>
+        <div class="dir-desc">自动抓取网页数据，数据采集方向，入门门槛低、见效快</div>
+        <div class="dir-tags">
+          <span class="dir-tag">requests</span>
+          <span class="dir-tag">BeautifulSoup4</span>
+          <span class="dir-tag">Scrapy</span>
+          <span class="dir-tag">Selenium</span>
+          <span class="dir-tag">Playwright</span>
+          <span class="dir-tag">反爬虫应对</span>
+          <span class="dir-tag">存储</span>
+        </div>
+      </div>
+
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(239,68,68,0.12),rgba(252,165,165,0.08));">
+        <div class="dir-icon">⚙️</div>
+        <div class="dir-title" style="color:#fca5a5;">运维自动化</div>
+        <div class="dir-desc">自动化服务器管理、CI/CD、DevOps 方向，薪资可观</div>
+        <div class="dir-tags">
+          <span class="dir-tag">paramiko SSH</span>
+          <span class="dir-tag">fabric</span>
+          <span class="dir-tag">Ansible</span>
+          <span class="dir-tag">Shell脚本</span>
+          <span class="dir-tag">Docker/K8s</span>
+          <span class="dir-tag">监控告警</span>
+        </div>
+      </div>
+
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(20,184,166,0.12),rgba(94,234,212,0.08));">
+        <div class="dir-icon">🧪</div>
+        <div class="dir-title" style="color:#5eead4;">自动化测试</div>
+        <div class="dir-desc">保障软件质量，需求稳定，测试工程师转型 Python 的热门路径</div>
+        <div class="dir-tags">
+          <span class="dir-tag">pytest</span>
+          <span class="dir-tag">Selenium</span>
+          <span class="dir-tag">Appium</span>
+          <span class="dir-tag">Robot Framework</span>
+          <span class="dir-tag">接口测试</span>
+          <span class="dir-tag">性能测试</span>
+        </div>
+      </div>
+
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(139,92,246,0.12),rgba(196,181,253,0.08));">
+        <div class="dir-icon">🖥️</div>
+        <div class="dir-title" style="color:#c4b5fd;">桌面 GUI 开发</div>
+        <div class="dir-desc">开发跨平台桌面应用，内部工具开发需求旺盛</div>
+        <div class="dir-tags">
+          <span class="dir-tag">tkinter</span>
+          <span class="dir-tag">PyQt5/6</span>
+          <span class="dir-tag">PySide6</span>
+          <span class="dir-tag">CustomTkinter</span>
+          <span class="dir-tag">wxPython</span>
+          <span class="dir-tag">打包 exe</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 学习计划 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(20,184,166,0.15);">📅</div>
+      <div class="detail-title">详细学习计划（12个月版）</div>
+    </div>
+
+    <table class="plan-table">
+      <thead>
+        <tr>
+          <th>时间</th>
+          <th>主题</th>
+          <th>每日任务</th>
+          <th>里程碑</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="plan-week">第1周</span></td>
+          <td><span class="plan-badge" style="background:rgba(99,102,241,0.2);color:#a5b4fc;">安装配置</span></td>
+          <td>安装Python、VS Code，学习print/input/变量/运算符</td>
+          <td>运行第一个交互程序</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第2周</span></td>
+          <td><span class="plan-badge" style="background:rgba(99,102,241,0.2);color:#a5b4fc;">数据类型</span></td>
+          <td>字符串/数字/布尔，f-string，类型转换，小练习</td>
+          <td>能写10行内的小程序</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第3周</span></td>
+          <td><span class="plan-badge" style="background:rgba(139,92,246,0.2);color:#c4b5fd;">控制流</span></td>
+          <td>if/elif/else，for/while循环，break/continue</td>
+          <td>能解决猜数字游戏</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第4周</span></td>
+          <td><span class="plan-badge" style="background:rgba(139,92,246,0.2);color:#c4b5fd;">数据容器</span></td>
+          <td>list/dict/tuple/set，常用方法，遍历</td>
+          <td>实现通讯录管理程序</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第5~6周</span></td>
+          <td><span class="plan-badge" style="background:rgba(139,92,246,0.2);color:#c4b5fd;">函数</span></td>
+          <td>函数定义/参数/返回值，lambda，文件读写</td>
+          <td>完成学生成绩管理系统</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第7~8周</span></td>
+          <td><span class="plan-badge" style="background:rgba(236,72,153,0.2);color:#f9a8d4;">面向对象</span></td>
+          <td>class/对象/继承/多态/__init__，魔法方法</td>
+          <td>设计一个图书管理系统类</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第9~10周</span></td>
+          <td><span class="plan-badge" style="background:rgba(236,72,153,0.2);color:#f9a8d4;">模块标准库</span></td>
+          <td>异常处理，模块/包，os/json/datetime/re</td>
+          <td>能自动处理Excel/CSV文件</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第11~12周</span></td>
+          <td><span class="plan-badge" style="background:rgba(245,158,11,0.2);color:#fcd34d;">进阶特性</span></td>
+          <td>推导式，生成器，装饰器，类型注解</td>
+          <td>写出 Pythonic 风格的代码</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第13~14周</span></td>
+          <td><span class="plan-badge" style="background:rgba(245,158,11,0.2);color:#fcd34d;">工程化</span></td>
+          <td>虚拟环境，pytest测试，Git/GitHub，项目结构</td>
+          <td>在GitHub发布第一个项目</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第15~16周</span></td>
+          <td><span class="plan-badge" style="background:rgba(245,158,11,0.2);color:#fcd34d;">网络/并发</span></td>
+          <td>requests，asyncio，多线程/进程基础</td>
+          <td>完成一个爬虫或API调用项目</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第17~28周</span></td>
+          <td><span class="plan-badge" style="background:rgba(16,185,129,0.2);color:#6ee7b7;">方向深入</span></td>
+          <td>根据选定方向深入学习专业技术栈</td>
+          <td>完成方向内的 Demo 项目</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第29~48周</span></td>
+          <td><span class="plan-badge" style="background:rgba(20,184,166,0.2);color:#5eead4;">实战求职</span></td>
+          <td>完整项目开发，刷算法题，准备面试</td>
+          <td>拥有 2~3 个完整项目作品集</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== 资源推荐 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(59,130,246,0.15);">📚</div>
+      <div class="detail-title">优质学习资源推荐</div>
+    </div>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="resource-icon">🐍</div>
+        <div>
+          <div class="resource-name">Python 官方文档</div>
+          <div class="resource-desc">docs.python.org/zh-cn/3/ — 最权威的参考，遇到不会的优先查这里</div>
+          <div class="resource-type" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">免费</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">📺</div>
+        <div>
+          <div class="resource-name">B站：黑马程序员 Python</div>
+          <div class="resource-desc">视频系统全面，适合0基础，配套代码完整</div>
+          <div class="resource-type" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">免费</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">📖</div>
+        <div>
+          <div class="resource-name">《Python编程：从入门到实践》</div>
+          <div class="resource-desc">Eric Matthes著，入门经典书籍，项目驱动，强烈推荐</div>
+          <div class="resource-type" style="background:rgba(245,158,11,0.15);color:#fcd34d;">书籍</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">💻</div>
+        <div>
+          <div class="resource-name">LeetCode / 牛客</div>
+          <div class="resource-desc">刷算法题，为面试准备，先从 Easy 题开始</div>
+          <div class="resource-type" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">练习</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">🎮</div>
+        <div>
+          <div class="resource-name">Codecademy / freeCodeCamp</div>
+          <div class="resource-desc">交互式学习平台，边学边练，适合初学者建立信心</div>
+          <div class="resource-type" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">免费</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">🤖</div>
+        <div>
+          <div class="resource-name">AI辅助学习（ChatGPT/Claude）</div>
+          <div class="resource-desc">遇到不懂的代码直接问AI解释，事半功倍</div>
+          <div class="resource-type" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">工具</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">📚</div>
+        <div>
+          <div class="resource-name">《流畅的Python》</div>
+          <div class="resource-desc">进阶必读，深入理解Python特性，适合有基础后阅读</div>
+          <div class="resource-type" style="background:rgba(245,158,11,0.15);color:#fcd34d;">书籍</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">🏋️</div>
+        <div>
+          <div class="resource-name">GitHub 开源项目</div>
+          <div class="resource-desc">阅读优秀开源项目代码，这是提高最快的方式之一</div>
+          <div class="resource-type" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">实战</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 常见误区 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(239,68,68,0.15);">⚠️</div>
+      <div class="detail-title">新手常见误区 & 避坑指南</div>
+    </div>
+    <div class="pitfall-grid">
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 光看不练，只看视频刷完就觉得会了</div>
+        <div class="pitfall-a">✅ 每学一个知识点立刻动手敲代码，哪怕只是改改例子跑一跑。编程是手艺，必须练。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 遇到 Bug 就崩溃，一看报错就放弃</div>
+        <div class="pitfall-a">✅ 报错是宝贵信息！认真读错误信息的最后一行，90% 的问题都在那里。调试是必学技能。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 同时学多个方向/框架，什么都想会</div>
+        <div class="pitfall-a">✅ 先打牢基础，专注一个方向。Django + 数据库 OR Pandas + 可视化，一次只选一个。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 跳过基础直接学框架（如直接学 Django）</div>
+        <div class="pitfall-a">✅ 没有扎实的基础，学框架只会云里雾里。先把语法、OOP、异常处理学透再上框架。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 不写项目，只做练习题就满足了</div>
+        <div class="pitfall-a">✅ 做完基础后马上做项目！哪怕是"todo 清单"这种小项目，能让你遇到真实问题。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 过度追求"完美"，一行代码反复修改</div>
+        <div class="pitfall-a">✅ 先让程序跑起来，再优化。完成比完美更重要，完美主义是学习进度的最大杀手。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 终极建议 ===== -->
+  <hr class="divider">
+  <div class="detail-section" style="padding-bottom:40px;">
+    <div class="tip-box" style="border-color:rgba(16,185,129,0.3);background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(20,184,166,0.05));">
+      <div class="tip-box-title" style="color:#34d399;font-size:16px;">🏆 给0基础小白的终极建议</div>
+      <ul style="grid-template-columns:1fr;gap:10px;">
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>每天至少敲代码30分钟</strong>，连续性比单次大量学习更重要，大脑需要重复才能形成记忆</li>
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>学到哪个知识点就做对应的小项目</strong>，学完循环就做九九乘法表，学完文件就做日记本</li>
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>遇到不会的先Google，再问AI，再看文档</strong>，自己解决的问题记得最牢</li>
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>不要孤军奋战</strong>，加入学习群/开发者社区，有人一起学效率是单独学的3倍</li>
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>3个月是关键坎</strong>，大多数人在这里放弃，坚持过去就会越来越顺，质变就在那一刻</li>
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>用Python解决你真实遇到的问题</strong>，比如自动整理文件、处理表格，兴趣是最好的老师</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div>🐍 <strong>Python 学习路线</strong> · 0基础小白完全指南 · 2026版</div>
+  <div style="margin-top:6px;">坚持打卡，享受每一次 Bug 被解决的成就感 · 你一定可以的！💪</div>
+</footer>
+
+</body>
+</html>
