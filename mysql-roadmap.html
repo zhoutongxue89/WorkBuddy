@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MySQL 学习路线 · 0基础小白完全指南</title>
+<style>
+  :root {
+    --blue: #3B82F6;
+    --indigo: #6366F1;
+    --purple: #8B5CF6;
+    --pink: #EC4899;
+    --green: #10B981;
+    --teal: #14B8A6;
+    --orange: #F59E0B;
+    --red: #EF4444;
+    --cyan: #06B6D4;
+    --bg: #0F172A;
+    --card: #1E293B;
+    --border: #334155;
+    --text: #E2E8F0;
+    --muted: #94A3B8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #164e63 0%, #0e7490 40%, #1e3a5f 100%);
+    padding: 60px 20px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(6,182,212,0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(16,185,129,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(6,182,212,0.25);
+    border: 1px solid rgba(6,182,212,0.5);
+    color: #67e8f9;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #67e8f9 50%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 14px;
+  }
+  .hero p {
+    color: #94a3b8;
+    font-size: clamp(14px, 2.5vw, 18px);
+    max-width: 600px;
+    margin: 0 auto 28px;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    color: #cbd5e1;
+  }
+  .stat-pill span { color: #fff; font-weight: 700; }
+
+  /* ===== CONTAINER ===== */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+
+  /* ===== SECTION ===== */
+  .section { padding: 50px 0 20px; }
+  .section-title {
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .section-sub {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 36px;
+  }
+
+  /* ===== TIMELINE ===== */
+  .phase-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .phase-timeline::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #06B6D4, #10B981, #F59E0B, #EC4899, #8B5CF6);
+  }
+  .phase-item {
+    display: flex;
+    gap: 20px;
+    padding: 0 0 32px 0;
+    position: relative;
+  }
+  .phase-dot {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+    flex-shrink: 0;
+    z-index: 1;
+    position: relative;
+    box-shadow: 0 0 0 4px var(--bg);
+  }
+  .phase-content {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    flex: 1;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .phase-content:hover {
+    transform: translateX(4px);
+    border-color: #475569;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .phase-title { font-size: 17px; font-weight: 700; }
+  .phase-time {
+    background: rgba(255,255,255,0.07);
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .phase-desc { color: var(--muted); font-size: 14px; margin-bottom: 14px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tag {
+    padding: 3px 11px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ===== DETAIL CARDS ===== */
+  .detail-section { padding: 30px 0; }
+  .detail-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .detail-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .detail-title { font-size: 22px; font-weight: 700; }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .detail-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .detail-card:hover {
+    border-color: #475569;
+    transform: translateY(-2px);
+  }
+  .detail-card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .detail-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .detail-card ul li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+  .detail-card ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: #475569;
+  }
+
+  /* ===== CODE ===== */
+  .code-block {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 18px 20px;
+    font-family: 'Fira Code', 'Cascadia Code', Consolas, monospace;
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-x: auto;
+    margin: 12px 0;
+    position: relative;
+  }
+  .code-label {
+    position: absolute;
+    top: 10px; right: 14px;
+    font-size: 11px;
+    color: #484f58;
+    font-family: sans-serif;
+  }
+  .kw { color: #ff7b72; }
+  .fn { color: #d2a8ff; }
+  .str { color: #a5d6ff; }
+  .cm { color: #484f58; font-style: italic; }
+  .var { color: #ffa657; }
+  .num { color: #79c0ff; }
+  .dt { color: #7ee787; }
+
+  /* ===== RESOURCE ===== */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .resource-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: border-color 0.2s;
+  }
+  .resource-card:hover { border-color: #475569; }
+  .resource-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .resource-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .resource-desc { font-size: 12px; color: var(--muted); }
+  .resource-type {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  /* ===== TIP ===== */
+  .tip-box {
+    background: linear-gradient(135deg, rgba(6,182,212,0.1), rgba(16,185,129,0.08));
+    border: 1px solid rgba(6,182,212,0.3);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin: 16px 0;
+  }
+  .tip-box-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #67e8f9;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tip-box ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px;
+  }
+  .tip-box ul li {
+    font-size: 13px;
+    color: #cbd5e1;
+    padding-left: 16px;
+    position: relative;
+  }
+  .tip-box ul li::before { content: '✓'; position: absolute; left: 0; color: #06B6D4; }
+
+  /* ===== DIRECTION ===== */
+  .direction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .direction-card {
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .direction-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  }
+  .dir-icon { font-size: 32px; margin-bottom: 10px; }
+  .dir-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .dir-desc { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  .dir-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .dir-tag {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    background: rgba(255,255,255,0.08);
+    color: #94a3b8;
+  }
+
+  /* ===== PITFALL ===== */
+  .pitfall-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .pitfall-card {
+    background: var(--card);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .pitfall-q {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fca5a5;
+    margin-bottom: 6px;
+    display: flex;
+    gap: 6px;
+  }
+  .pitfall-a { font-size: 12px; color: var(--muted); }
+
+  /* ===== PLAN TABLE ===== */
+  .plan-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 14px;
+  }
+  .plan-table th {
+    background: rgba(6,182,212,0.15);
+    color: #67e8f9;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  .plan-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(51,65,85,0.5);
+    color: var(--muted);
+    vertical-align: top;
+  }
+  .plan-table tr:hover td { background: rgba(255,255,255,0.02); color: var(--text); }
+  .plan-week { color: var(--text); font-weight: 600; }
+  .plan-badge {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  /* ===== DIVIDER ===== */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 10px 0;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 28px 20px;
+    margin-top: 60px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer strong { color: var(--text); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .hero { padding: 40px 16px 36px; }
+    .phase-timeline::before { left: 20px; }
+    .phase-dot { width: 42px; height: 42px; font-size: 16px; }
+    .detail-grid { grid-template-columns: 1fr; }
+    .direction-grid { grid-template-columns: 1fr; }
+    .pitfall-grid { grid-template-columns: 1fr; }
+    .resource-grid { grid-template-columns: 1fr; }
+    .plan-table { font-size: 12px; }
+    .plan-table th, .plan-table td { padding: 8px 10px; }
+    .tip-box ul { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-badge">🗄️ MySQL 完全学习指南 2026</div>
+  <h1>MySQL 学习路线</h1>
+  <p>专为 0 基础小白设计 · 从数据库概念到 SQL 实战，史上最全学习路径</p>
+  <div class="hero-stats">
+    <div class="stat-pill">📅 系统学习周期 <span>4~8 个月</span></div>
+    <div class="stat-pill">🗺️ 共 <span>6 大阶段</span></div>
+    <div class="stat-pill">🎯 覆盖 <span>6 大就业方向</span></div>
+    <div class="stat-pill">💡 <span>80+</span> 知识点梳理</div>
+  </div>
+</div>
+
+<!-- ===== OVERVIEW ===== -->
+<div class="container">
+  <div class="section">
+    <div class="section-title">🗺️ 整体学习路线总览</div>
+    <div class="section-sub">六个阶段循序渐进，每阶段都有明确目标和里程碑</div>
+
+    <div class="phase-timeline">
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#06B6D4,#22D3EE);">1</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">🚀 数据库基础与安装</span>
+            <span class="phase-time">第 1~2 周</span>
+          </div>
+          <div class="phase-desc">理解数据库是什么，安装 MySQL，掌握基本概念，为后续学习打下基础。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(6,182,212,0.15);color:#67e8f9;">数据库概念</span>
+            <span class="tag" style="background:rgba(6,182,212,0.15);color:#67e8f9;">MySQL安装</span>
+            <span class="tag" style="background:rgba(6,182,212,0.15);color:#67e8f9;">SQL是什么</span>
+            <span class="tag" style="background:rgba(6,182,212,0.15);color:#67e8f9;">Navicat使用</span>
+            <span class="tag" style="background:rgba(6,182,212,0.15);color:#67e8f9;">Workbench</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#10B981,#34D399);">2</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">📝 SQL 基础查询</span>
+            <span class="phase-time">第 3~6 周</span>
+          </div>
+          <div class="phase-desc">掌握 SQL 最核心的查询语句，能够对数据进行增删改查操作。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">SELECT</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">WHERE</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">ORDER BY</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">LIMIT</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">DISTINCT</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">INSERT</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">UPDATE</span>
+            <span class="tag" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">DELETE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#F59E0B,#FBBF24);">3</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">🔗 SQL 进阶与多表查询</span>
+            <span class="phase-time">第 7~10 周</span>
+          </div>
+          <div class="phase-desc">深入学习聚合函数、连接查询、子查询，能够处理复杂的数据分析需求。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">COUNT/SUM/AVG/MAX</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">GROUP BY</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">HAVING</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">INNER JOIN</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">LEFT/RIGHT JOIN</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">子查询</span>
+            <span class="tag" style="background:rgba(245,158,11,0.15);color:#fcd34d;">UNION</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#EC4899,#F472B6);">4</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">🏗️ 表结构设计与规范</span>
+            <span class="phase-time">第 11~14 周</span>
+          </div>
+          <div class="phase-desc">掌握数据库设计原则，学会创建高效的表结构，理解三大范式。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">数据类型</span>
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">主键</span>
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">外键</span>
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">索引</span>
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">三大范式</span>
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">ER图</span>
+            <span class="tag" style="background:rgba(236,72,153,0.15);color:#f9a8d4;">约束</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#8B5CF6,#A78BFA);">5</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">⚡ MySQL 高级特性</span>
+            <span class="phase-time">第 15~20 周</span>
+          </div>
+          <div class="phase-desc">深入理解存储过程、触发器、事务、锁机制，具备解决复杂问题的能力。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">存储过程</span>
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">触发器</span>
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">事务</span>
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">ACID</span>
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">锁机制</span>
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">视图</span>
+            <span class="tag" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">性能优化</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase-item">
+        <div class="phase-dot" style="background:linear-gradient(135deg,#6366F1,#818CF8);">6</div>
+        <div class="phase-content">
+          <div class="phase-header">
+            <span class="phase-title">🏆 项目实战与面试</span>
+            <span class="phase-time">第 21~32 周</span>
+          </div>
+          <div class="phase-desc">完成完整项目实战，准备面试算法题和数据库设计题，迈向职业化。</div>
+          <div class="tag-list">
+            <span class="tag" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">项目实战</span>
+            <span class="tag" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">SQL优化</span>
+            <span class="tag" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">慢查询分析</span>
+            <span class="tag" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">分库分表</span>
+            <span class="tag" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">主从复制</span>
+            <span class="tag" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">面试准备</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== 阶段1 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(6,182,212,0.15);">🚀</div>
+      <div class="detail-title">阶段 1 · 数据库基础与安装（第1~2周）</div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#67e8f9;">🗄️ 数据库概念</div>
+        <ul>
+          <li>什么是数据库（DB）</li>
+          <li>数据库管理系统（DBMS）</li>
+          <li>关系型数据库 vs 非关系型</li>
+          <li>MySQL 简介与优势</li>
+          <li>常见的数据库产品</li>
+          <li>数据库应用场景</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#67e8f9;">🛠️ MySQL 安装配置</div>
+        <ul>
+          <li>Windows / Mac / Linux 安装</li>
+          <li>使用安装包或包管理器</li>
+          <li>MySQL 服务启动与停止</li>
+          <li>配置环境变量</li>
+          <li>连接 MySQL 服务</li>
+          <li>MySQL 目录结构</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#67e8f9;">🔧 图形化工具</div>
+        <ul>
+          <li>Navicat Premium（推荐）</li>
+          <li>MySQL Workbench（官方）</li>
+          <li>DBeaver（免费开源）</li>
+          <li>DataGrip（JetBrains）</li>
+          <li>phpMyAdmin（Web版）</li>
+          <li>创建数据库与连接</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#67e8f9;">📖 SQL 入门</div>
+        <ul>
+          <li>SQL 是什么（全称与含义）</li>
+          <li>SQL 的分类（DDL/DML/DQL/DCL）</li>
+          <li>SQL 语句书写规范</li>
+          <li>注释的写法</li>
+          <li>大小写与空格</li>
+          <li>第一个 SQL 语句</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-box-title">💡 入门阶段学习建议</div>
+      <ul>
+        <li>每天保证 1~2 小时练习 SQL</li>
+        <li>手敲每一行 SQL，不要复制粘贴</li>
+        <li>多用图形化工具建立直观感受</li>
+        <li>理解数据库是"存储数据的excel"</li>
+        <li>先跑通，再理解原理</li>
+        <li>不要纠结细节，保持向前推进</li>
+      </ul>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label">示例：创建数据库和表</div>
+<span class="cm">-- 创建数据库</span>
+<span class="kw">CREATE DATABASE</span> <span class="fn">shop_db</span> <span class="kw">CHARSET</span> <span class="dt">utf8mb4</span>;
+
+<span class="cm">-- 使用数据库</span>
+<span class="kw">USE</span> <span class="fn">shop_db</span>;
+
+<span class="cm">-- 创建用户表</span>
+<span class="kw">CREATE TABLE</span> <span class="fn">users</span> (
+    <span class="var">id</span> <span class="dt">INT</span> <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
+    <span class="var">username</span> <span class="dt">VARCHAR</span>(<span class="num">50</span>) <span class="kw">NOT NULL</span>,
+    <span class="var">email</span> <span class="dt">VARCHAR</span>(<span class="num">100</span>),
+    <span class="var">created_at</span> <span class="dt">DATETIME</span> <span class="kw">DEFAULT CURRENT_TIMESTAMP</span>
+) <span class="kw">ENGINE</span>=<span class="dt">InnoDB</span> <span class="kw">CHARSET</span>=<span class="dt">utf8mb4</span>;
+    </div>
+  </div>
+
+  <!-- ===== 阶段2 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(16,185,129,0.15);">📝</div>
+      <div class="detail-title">阶段 2 · SQL 基础查询（第3~6周）</div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#6ee7b7;">🔍 SELECT 查询基础</div>
+        <ul>
+          <li>SELECT ... FROM 基本语法</li>
+          <li>查询所有列：SELECT *</li>
+          <li>查询指定列</li>
+          <li>列的别名（AS 关键字）</li>
+          <li>DISTINCT 去重</li>
+          <li>四则运算在 SQL 中的应用</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#6ee7b7;">🔎 WHERE 条件筛选</div>
+        <ul>
+          <li>比较运算符：= != > < >= <=</li>
+          <li>AND / OR / NOT 逻辑运算</li>
+          <li>BETWEEN ... AND ... 范围</li>
+          <li>IN / NOT IN 枚举查询</li>
+          <li>LIKE 模糊匹配（% 和 _）</li>
+          <li>IS NULL / IS NOT NULL</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#6ee7b7;">📊 排序与分页</div>
+        <ul>
+          <li>ORDER BY 单列排序</li>
+          <li>ORDER BY 多列排序</li>
+          <li>ASC / DESC 升序/降序</li>
+          <li>LIMIT 限制返回条数</li>
+          <li>OFFSET 偏移量（分页）</li>
+          <li>LIMIT offset, count 分页公式</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#6ee7b7;">➕ 数据增删改</div>
+        <ul>
+          <li>INSERT INTO 插入数据</li>
+          <li>批量插入数据</li>
+          <li>INSERT ... SELECT</li>
+          <li>UPDATE ... SET 修改数据</li>
+          <li>DELETE FROM 删除数据</li>
+          <li>TRUNCATE 清空表数据</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label">示例：完整的 CRUD 操作</div>
+<span class="cm">-- 1. 插入数据</span>
+<span class="kw">INSERT INTO</span> <span class="fn">users</span> (<span class="var">username</span>, <span class="var">email</span>) <span class="kw">VALUES</span>
+    (<span class="str">'张三'</span>, <span class="str">'zhangsan@example.com'</span>),
+    (<span class="str">'李四'</span>, <span class="str">'lisi@example.com'</span>),
+    (<span class="str">'王五'</span>, <span class="str">'wangwu@example.com'</span>);
+
+<span class="cm">-- 2. 查询数据（条件 + 排序 + 分页）</span>
+<span class="kw">SELECT</span> <span class="var">id</span>, <span class="var">username</span>, <span class="var">email</span>
+<span class="kw">FROM</span> <span class="fn">users</span>
+<span class="kw">WHERE</span> <span class="var">id</span> > <span class="num">0</span>
+<span class="kw">ORDER BY</span> <span class="var">id</span> <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="num">10</span> <span class="kw">OFFSET</span> <span class="num">0</span>;
+
+<span class="cm">-- 3. 修改数据</span>
+<span class="kw">UPDATE</span> <span class="fn">users</span> <span class="kw">SET</span> <span class="var">email</span> = <span class="str">'new@example.com'</span> <span class="kw">WHERE</span> <span class="var">username</span> = <span class="str">'张三'</span>;
+
+<span class="cm">-- 4. 删除数据</span>
+<span class="kw">DELETE FROM</span> <span class="fn">users</span> <span class="kw">WHERE</span> <span class="var">id</span> = <span class="num">3</span>;
+    </div>
+  </div>
+
+  <!-- ===== 阶段3 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(245,158,11,0.15);">🔗</div>
+      <div class="detail-title">阶段 3 · SQL 进阶与多表查询（第7~10周）</div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#fcd34d;">📈 聚合函数</div>
+        <ul>
+          <li>COUNT(*) / COUNT(列)</li>
+          <li>SUM() 求和</li>
+          <li>AVG() 平均值</li>
+          <li>MAX() / MIN() 最值</li>
+          <li>聚合函数与 DISTINCT</li>
+          <li>聚合函数结果作为条件</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#fcd34d;">📊 分组聚合</div>
+        <ul>
+          <li>GROUP BY 分组</li>
+          <li>HAVING 过滤分组结果</li>
+          <li>GROUP BY + 聚合函数</li>
+          <li>多列分组</li>
+          <li>分组后的排序</li>
+          <li>GROUP_CONCAT 字符串聚合</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#fcd34d;">🔗 表连接</div>
+        <ul>
+          <li>为什么要 JOIN</li>
+          <li>INNER JOIN 内连接</li>
+          <li>LEFT JOIN 左连接</li>
+          <li>RIGHT JOIN 右连接</li>
+          <li>FULL OUTER JOIN 全连接</li>
+          <li>多表 JOIN 的连接顺序</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#fcd34d;">🔍 子查询</div>
+        <ul>
+          <li>什么是子查询</li>
+          <li>标量子查询（返回单一值）</li>
+          <li>列子查询（返回一列）</li>
+          <li>行子查询（返回一行）</li>
+          <li>表子查询（返回多行多列）</li>
+          <li>EXISTS / NOT EXISTS</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label">示例：多表查询实战</div>
+<span class="cm">-- 订单表 + 用户表 + 商品表</span>
+<span class="kw">SELECT</span> 
+    <span class="fn">u</span>.<span class="var">username</span>,
+    <span class="fn">o</span>.<span class="var">order_no</span>,
+    <span class="fn">p</span>.<span class="var">product_name</span>,
+    <span class="fn">oi</span>.<span class="var">quantity</span> * <span class="fn">p</span>.<span class="var">price</span> <span class="kw">AS</span> <span class="var">subtotal</span>
+<span class="kw">FROM</span> <span class="fn">orders</span> <span class="fn">o</span>
+<span class="kw">INNER JOIN</span> <span class="fn">users</span> <span class="fn">u</span> <span class="kw">ON</span> <span class="fn">o</span>.<span class="var">user_id</span> = <span class="fn">u</span>.<span class="var">id</span>
+<span class="kw">INNER JOIN</span> <span class="fn">order_items</span> <span class="fn">oi</span> <span class="kw">ON</span> <span class="fn">o</span>.<span class="var">id</span> = <span class="fn">oi</span>.<span class="var">order_id</span>
+<span class="kw">INNER JOIN</span> <span class="fn">products</span> <span class="fn">p</span> <span class="kw">ON</span> <span class="fn">oi</span>.<span class="var">product_id</span> = <span class="fn">p</span>.<span class="var">id</span>
+<span class="kw">WHERE</span> <span class="fn">u</span>.<span class="var">status</span> = <span class="str">'active'</span>
+<span class="kw">ORDER BY</span> <span class="fn">o</span>.<span class="var">created_at</span> <span class="kw">DESC</span>;
+
+<span class="cm">-- 子查询：查询消费超过1000的用户</span>
+<span class="kw">SELECT</span> <span class="var">username</span>, <span class="var">email</span>
+<span class="kw">FROM</span> <span class="fn">users</span>
+<span class="kw">WHERE</span> <span class="var">id</span> <span class="kw">IN</span> (
+    <span class="kw">SELECT DISTINCT</span> <span class="var">user_id</span>
+    <span class="kw">FROM</span> <span class="fn">orders</span>
+    <span class="kw">GROUP BY</span> <span class="var">user_id</span>
+    <span class="kw">HAVING</span> <span class="fn">SUM</span>(<span class="var">total_amount</span>) > <span class="num">1000</span>
+);
+    </div>
+  </div>
+
+  <!-- ===== 阶段4 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(236,72,153,0.15);">🏗️</div>
+      <div class="detail-title">阶段 4 · 表结构设计与规范（第11~14周）</div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#f9a8d4;">🔢 数据类型精讲</div>
+        <ul>
+          <li>整数类型：TINYINT/INT/BIGINT</li>
+          <li>浮点数：FLOAT/DOUBLE/DECIMAL</li>
+          <li>字符串：CHAR/VARCHAR/TEXT</li>
+          <li>日期时间：DATE/TIME/DATETIME</li>
+          <li>枚举与集合类型</li>
+          <li>如何选择合适的数据类型</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#f9a8d4;">🔑 键与约束</div>
+        <ul>
+          <li>主键（PRIMARY KEY）</li>
+          <li>唯一键（UNIQUE KEY）</li>
+          <li>外键（FOREIGN KEY）</li>
+          <li>非空约束（NOT NULL）</li>
+          <li>默认值约束（DEFAULT）</li>
+          <li>自增（AUTO_INCREMENT）</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#f9a8d4;">🚀 索引原理与使用</div>
+        <ul>
+          <li>索引是什么（数据结构）</li>
+          <li>主键索引 vs 唯一索引</li>
+          <li>普通索引</li>
+          <li>复合索引（多列索引）</li>
+          <li>索引的优缺点</li>
+          <li>如何分析与优化索引</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#f9a8d4;">📐 数据库三范式</div>
+        <ul>
+          <li>第一范式（1NF）：原子性</li>
+          <li>第二范式（2NF）：唯一性</li>
+          <li>第三范式（3NF）：冗余性</li>
+          <li>反范式化设计</li>
+          <li>ER 图绘制</li>
+          <li>表关系设计（一对多/多对多）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 阶段5 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(139,92,246,0.15);">⚡</div>
+      <div class="detail-title">阶段 5 · MySQL 高级特性（第15~20周）</div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#c4b5fd;">🗂️ 视图</div>
+        <ul>
+          <li>什么是视图</li>
+          <li>创建视图 CREATE VIEW</li>
+          <li>修改视图</li>
+          <li>删除视图</li>
+          <li>视图的作用与优缺点</li>
+          <li>可更新视图</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#c4b5fd;">📦 存储过程</div>
+        <ul>
+          <li>什么是存储过程</li>
+          <li>DELIMITER 定义语句结束符</li>
+          <li>CREATE PROCEDURE 创建</li>
+          <li>变量声明与赋值</li>
+          <li>IF 条件判断</li>
+          <li>WHILE / REPEAT 循环</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#c4b5fd;">⚡ 事务</div>
+        <ul>
+          <li>事务是什么</li>
+          <li>ACID 特性</li>
+          <li>BEGIN / COMMIT / ROLLBACK</li>
+          <li>自动提交设置（SET autocommit）</li>
+          <li>事务隔离级别</li>
+          <li>并发问题与锁</li>
+        </ul>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-title" style="color:#c4b5fd;">🎯 触发器</div>
+        <ul>
+          <li>什么是触发器</li>
+          <li>创建触发器 CREATE TRIGGER</li>
+          <li>BEFORE / AFTER 触发时机</li>
+          <li>INSERT / UPDATE / DELETE</li>
+          <li>NEW 和 OLD 关键字</li>
+          <li>删除触发器</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 方向选择 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(99,102,241,0.15);">🎯</div>
+      <div class="detail-title">阶段 6 · 六大就业方向（选一深入）</div>
+    </div>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:20px;">根据你的目标和兴趣选择一个方向深入，不要同时学多个方向，专注才能突破。</p>
+
+    <div class="direction-grid">
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(6,182,212,0.12),rgba(34,211,238,0.08));">
+        <div class="dir-icon">💻</div>
+        <div class="dir-title" style="color:#22d3ee;">后端开发</div>
+        <div class="dir-desc">MySQL + Python/Java/Go，配合 Redis 构建高性能后端服务</div>
+        <div class="dir-tags">
+          <span class="dir-tag">MySQL</span>
+          <span class="dir-tag">Redis</span>
+          <span class="dir-tag">ORM</span>
+          <span class="dir-tag">主从分离</span>
+          <span class="dir-tag">分库分表</span>
+        </div>
+      </div>
+
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(52,211,153,0.08));">
+        <div class="dir-icon">📊</div>
+        <div class="dir-title" style="color:#34d399;">数据分析师</div>
+        <div class="dir-desc">SQL 是核心技能，配合 Python/Pandas 进行数据分析与可视化</div>
+        <div class="dir-tags">
+          <span class="dir-tag">SQL 查询</span>
+          <span class="dir-tag">Python</span>
+          <span class="dir-tag">Pandas</span>
+          <span class="dir-tag">Tableau</span>
+          <span class="dir-tag">BI</span>
+        </div>
+      </div>
+
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(251,191,36,0.08));">
+        <div class="dir-icon">🛒</div>
+        <div class="dir-title" style="color:#fbbf24;">DBA 数据库管理员</div>
+        <div class="dir-desc">负责数据库运维、优化、备份恢复、安全管理等，专业方向</div>
+        <div class="dir-tags">
+          <span class="dir-tag">MySQL 运维</span>
+          <span class="dir-tag">性能优化</span>
+          <span class="dir-tag">备份恢复</span>
+          <span class="dir-tag">监控</span>
+          <span class="dir-tag">安全</span>
+        </div>
+      </div>
+
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(236,72,153,0.12),rgba(244,114,182,0.08));">
+        <div class="dir-icon">🔍</div>
+        <div class="dir-title" style="color:#f472b6;">BI 工程师</div>
+        <div class="dir-desc">构建企业数据仓库，开发报表与仪表盘，支持业务决策</div>
+        <div class="dir-tags">
+          <span class="dir-tag">数据仓库</span>
+          <span class="dir-tag">ETL</span>
+          <span class="dir-tag">FineBI</span>
+          <span class="dir-tag">PowerBI</span>
+        </div>
+      </div>
+
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(139,92,246,0.12),rgba(196,181,253,0.08));">
+        <div class="dir-icon">📱</div>
+        <div class="dir-title" style="color:#c4b5fd;">测试工程师</div>
+        <div class="dir-desc">数据库测试、接口测试、性能测试，QA 重要技能</div>
+        <div class="dir-tags">
+          <span class="dir-tag">SQL 测试</span>
+          <span class="dir-tag">接口测试</span>
+          <span class="dir-tag">Postman</span>
+          <span class="dir-tag">JMeter</span>
+        </div>
+      </div>
+
+      <div class="direction-card" style="background:linear-gradient(135deg,rgba(99,102,241,0.12),rgba(129,140,248,0.08));">
+        <div class="dir-icon">🤖</div>
+        <div class="dir-title" style="color:#a5b4fc;">AI / 大数据</div>
+        <div class="dir-desc">作为数据源接入 AI 系统，处理海量数据</div>
+        <div class="dir-tags">
+          <span class="dir-tag">MySQL</span>
+          <span class="dir-tag">Spark</span>
+          <span class="dir-tag">Hadoop</span>
+          <span class="dir-tag">向量数据库</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 学习计划 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(20,184,166,0.15);">📅</div>
+      <div class="detail-title">详细学习计划（8个月版）</div>
+    </div>
+
+    <table class="plan-table">
+      <thead>
+        <tr>
+          <th>时间</th>
+          <th>主题</th>
+          <th>每日任务</th>
+          <th>里程碑</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="plan-week">第1周</span></td>
+          <td><span class="plan-badge" style="background:rgba(6,182,212,0.2);color:#67e8f9;">数据库概念</span></td>
+          <td>了解数据库、DBMS、关系型数据库概念，安装MySQL</td>
+          <td>能连接MySQL并创建数据库</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第2周</span></td>
+          <td><span class="plan-badge" style="background:rgba(6,182,212,0.2);color:#67e8f9;">图形工具</span></td>
+          <td>安装Navicat/Workbench，创建第一个表</td>
+          <td>用图形工具完成CRUD操作</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第3~4周</span></td>
+          <td><span class="plan-badge" style="background:rgba(16,185,129,0.2);color:#6ee7b7;">SELECT查询</span></td>
+          <td>SELECT/WHERE/ORDER BY/LIMIT 练习</td>
+          <td>能写复杂的多条件查询</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第5~6周</span></td>
+          <td><span class="plan-badge" style="background:rgba(16,185,129,0.2);color:#6ee7b7;">增删改</span></td>
+          <td>INSERT/UPDATE/DELETE 练习</td>
+          <td>能对数据进行完整操作</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第7~8周</span></td>
+          <td><span class="plan-badge" style="background:rgba(245,158,11,0.2);color:#fcd34d;">聚合函数</span></td>
+          <td>COUNT/SUM/AVG/MAX/GROUP BY</td>
+          <td>能进行数据统计分析</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第9~10周</span></td>
+          <td><span class="plan-badge" style="background:rgba(245,158,11,0.2);color:#fcd34d;">多表查询</span></td>
+          <td>JOIN/子查询/UNION练习</td>
+          <td>能写多表关联复杂查询</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第11~12周</span></td>
+          <td><span class="plan-badge" style="background:rgba(236,72,153,0.2);color:#f9a8d4;">数据类型</span></td>
+          <td>数据类型选择、主键外键、约束</td>
+          <td>能设计规范的表结构</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第13~14周</span></td>
+          <td><span class="plan-badge" style="background:rgba(236,72,153,0.2);color:#f9a8d4;">索引与范式</span></td>
+          <td>索引创建与使用、三大范式、ER图</td>
+          <td>能完成数据库设计</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第15~16周</span></td>
+          <td><span class="plan-badge" style="background:rgba(139,92,246,0.2);color:#c4b5fd;">视图</span></td>
+          <td>视图创建与使用、视图更新</td>
+          <td>能用视图简化复杂查询</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第17~18周</span></td>
+          <td><span class="plan-badge" style="background:rgba(139,92,246,0.2);color:#c4b5fd;">存储过程</span></td>
+          <td>存储过程、变量、条件、循环</td>
+          <td>能编写存储过程</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第19~20周</span></td>
+          <td><span class="plan-badge" style="background:rgba(139,92,246,0.2);color:#c4b5fd;">事务与触发器</span></td>
+          <td>事务控制、ACID、触发器</td>
+          <td>能处理数据一致性问题</td>
+        </tr>
+        <tr>
+          <td><span class="plan-week">第21~32周</span></td>
+          <td><span class="plan-badge" style="background:rgba(99,102,241,0.2);color:#a5b4fc;">项目实战</span></td>
+          <td>完整项目、SQL优化、面试准备</td>
+          <td>拥有2~3个项目作品集</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== 资源推荐 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(59,130,246,0.15);">📚</div>
+      <div class="detail-title">优质学习资源推荐</div>
+    </div>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="resource-icon">🐬</div>
+        <div>
+          <div class="resource-name">MySQL 官方文档</div>
+          <div class="resource-desc">dev.mysql.com/doc — 最权威的参考，遇到问题优先查这里</div>
+          <div class="resource-type" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">免费</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">📺</div>
+        <div>
+          <div class="resource-name">B站：MySQL 入门到精通</div>
+          <div class="resource-desc">视频系统全面，适合0基础，详细讲解SQL操作</div>
+          <div class="resource-type" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">免费</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">📖</div>
+        <div>
+          <div class="resource-name">《MySQL必知必会》</div>
+          <div class="resource-desc">Ben Forta著，薄册子入门经典，SQL查询实战</div>
+          <div class="resource-type" style="background:rgba(245,158,11,0.15);color:#fcd34d;">书籍</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">📖</div>
+        <div>
+          <div class="resource-name">《高性能MySQL》</div>
+          <div class="resource-desc">MySQL领域经典著作，进阶必读，深度优化</div>
+          <div class="resource-type" style="background:rgba(245,158,11,0.15);color:#fcd34d;">书籍</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">💻</div>
+        <div>
+          <div class="resource-name">SQL Zoo / SQLBolt</div>
+          <div class="resource-desc">在线SQL练习平台，边学边练</div>
+          <div class="resource-type" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">练习</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">🎮</div>
+        <div>
+          <div class="resource-name">LeetCode 数据库题</div>
+          <div class="resource-desc">刷SQL算法题，为面试准备</div>
+          <div class="resource-type" style="background:rgba(99,102,241,0.15);color:#a5b4fc;">练习</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">🗂️</div>
+        <div>
+          <div class="resource-name">牛客网 SQL 专题</div>
+          <div class="resource-desc">国内SQL面试真题，题目丰富</div>
+          <div class="resource-type" style="background:rgba(6,182,212,0.15);color:#67e8f9;">练习</div>
+        </div>
+      </div>
+      <div class="resource-card">
+        <div class="resource-icon">🤖</div>
+        <div>
+          <div class="resource-name">AI辅助学习</div>
+          <div class="resource-desc">遇到不懂的SQL直接问AI解释，事半功倍</div>
+          <div class="resource-type" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">工具</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 常见误区 ===== -->
+  <hr class="divider">
+  <div class="detail-section">
+    <div class="detail-header">
+      <div class="detail-icon" style="background:rgba(239,68,68,0.15);">⚠️</div>
+      <div class="detail-title">新手常见误区 & 避坑指南</div>
+    </div>
+    <div class="pitfall-grid">
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 光看不练，只看视频刷完就觉得会了</div>
+        <div class="pitfall-a">✅ 每学一个SQL语句立刻动手敲，自己跑一遍看结果。SQL是手艺，必须练。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 不理解表关系，一顿乱JOIN</div>
+        <div class="pitfall-a">✅ 先画ER图理解表与表之间的关系，再写JOIN。乱JOIN是性能杀手。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 忽视索引，认为SQL能跑就行</div>
+        <div class="pitfall-a">✅ 数据量大了没有索引会慢死。学索引要理解底层数据结构（B+树）。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 不注意数据类型选择，用VARCHAR存数字</div>
+        <div class="pitfall-a">✅ 选错数据类型会影响性能和处理逻辑。数字用数字类型，日期用日期类型。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 不理解事务，一顿乱更新</div>
+        <div class="pitfall-a">✅ 涉及多条数据修改时要考虑事务，否则数据会不一致。</div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-q">❌ 只学SQL，不学数据库设计</div>
+        <div class="pitfall-a">✅ 会写SQL不算会数据库。表结构设计、索引优化、范式选择才是核心。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 终极建议 ===== -->
+  <hr class="divider">
+  <div class="detail-section" style="padding-bottom:40px;">
+    <div class="tip-box" style="border-color:rgba(16,185,129,0.3);background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(20,184,166,0.05));">
+      <div class="tip-box-title" style="color:#34d399;font-size:16px;">🏆 给0基础小白的终极建议</div>
+      <ul style="grid-template-columns:1fr;gap:10px;">
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>每天至少敲30分钟SQL</strong>，连续性比单次大量学习更重要</li>
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>建立自己的练习数据库</strong>，模拟真实业务场景（电商/博客/学生管理）</li>
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>遇到问题先Google，再问AI</strong>，自己解决的问题记得最牢</li>
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>重视表设计</strong>，好表结构是成功的一半</li>
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>3个月是关键坎</strong>，坚持过去就会越来越顺</li>
+        <li style="color:#e2e8f0;font-size:14px;padding-left:20px;">📌 <strong>SQL是通用技能</strong>，学会后MySQL/PostgreSQL/SQL Server都差不多</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div>🗄️ <strong>MySQL 学习路线</strong> · 0基础小白完全指南 · 2026版</div>
+  <div style="margin-top:6px;">坚持打卡，享受每一次查询成功带来的成就感 · 你一定可以的！💪</div>
+</footer>
+
+</body>
+</html>
