@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>周同学的原理剖析</title>
+    <title>周同学的学习之路</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -19,7 +19,7 @@
             background: white;
             border-radius: 20px;
             padding: 40px;
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
@@ -47,8 +47,24 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
         }
-        .card-openclaw {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .card-python {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        .card-mysql {
+            background: linear-gradient(135deg, #007bff 0%, #00d4ff 100%);
+            color: white;
+        }
+        .card-k8s {
+            background: linear-gradient(135deg, #326ce5 0%, #7b68ee 100%);
+            color: white;
+        }
+        .card-ai {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        .card-china-ai {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
             color: white;
         }
         .card-icon {
@@ -74,19 +90,43 @@
 </head>
 <body>
     <div class="container">
-        <h1>🦐 周同学的原理剖析</h1>
+        <h1>📚 周同学的学习之路</h1>
         <p class="subtitle">持续学习，共同进步</p>
         
-        <a href="openclaw-principles.html" class="card card-openclaw">
-            <div class="card-icon">🔓</div>
-            <div class="card-title">OpenClaw 原理解析</div>
-            <div class="card-desc">深入理解技术原理，提升核心能力</div>
-        </a>
-        
-        <a href="python-roadmap-detailed.html" class="card" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white;">
+        <a href="python-roadmap-detailed.html" class="card card-python">
             <div class="card-icon">🐍</div>
             <div class="card-title">Python 学习路线</div>
             <div class="card-desc">52周详细学习计划，从零基础到精通</div>
+        </a>
+        
+        <a href="python-roadmap.html" class="card card-python">
+            <div class="card-icon">🐍</div>
+            <div class="card-title">Python 学习路线（精简版）</div>
+            <div class="card-desc">快速入门指南，适合有编程基础的学习者</div>
+        </a>
+        
+        <a href="mysql-roadmap.html" class="card card-mysql">
+            <div class="card-icon">🐬</div>
+            <div class="card-title">MySQL 学习路线</div>
+            <div class="card-desc">数据库从入门到精通，SQL 优化与实战</div>
+        </a>
+        
+        <a href="k8s-learning-path.html" class="card card-k8s">
+            <div class="card-icon">☸️</div>
+            <div class="card-title">Kubernetes 学习路线</div>
+            <div class="card-desc">云原生容器编排，K8s 从入门到实践</div>
+        </a>
+        
+        <a href="ai-tools-comparison.html" class="card card-ai">
+            <div class="card-icon">🤖</div>
+            <div class="card-title">AI 工具对比</div>
+            <div class="card-desc">主流 AI 编程助手功能对比与选型指南</div>
+        </a>
+        
+        <a href="china-ai-tools.html" class="card card-china-ai">
+            <div class="card-icon">🇨🇳</div>
+            <div class="card-title">国产 AI 工具汇总</div>
+            <div class="card-desc">国内主流 AI 编程工具盘点与评测</div>
         </a>
         
         <div class="footer">
